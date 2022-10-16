@@ -4,6 +4,7 @@ using LeaveManagementNet6.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeaveManagementNet6.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221015182558_AddedDefaultUsersAndRoles")]
+    partial class AddedDefaultUsersAndRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,19 +108,18 @@ namespace LeaveManagementNet6.Data.Migrations
                         {
                             Id = "ece65c8a-a8cc-5559-dccb-2cff542ddcca",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "798a7d91-02ae-4e4f-95e7-d018c672da49",
+                            ConcurrencyStamp = "05c553a5-c5e0-436f-9c4e-4ed4205fd270",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
-                            EmailConfirmed = true,
+                            EmailConfirmed = false,
                             Firstname = "System",
                             Lastname = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAED6FELWnJ1cxSMXjeP7/3e1jRcMBoVffgqg0h7Wo4O+J8NRQf7E4hlFkclgUhse4tA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL7E/DHaCGR6tDWVk7M6s5l87vTBnz9WpWanOAHrcsALBgYEXXH1KnAbGenuA3enPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c1ed63cc-73ef-404c-aeaa-4c59360ec91a",
+                            SecurityStamp = "86b67a27-ce19-4e07-836d-23a72b25e9b7",
                             TwoFactorEnabled = false
                         });
                 });
@@ -210,14 +211,14 @@ namespace LeaveManagementNet6.Data.Migrations
                         new
                         {
                             Id = "dbd54b7f-a8cc-5559-cbba-2bee542ddcca",
-                            ConcurrencyStamp = "3cfdaf93-d883-4587-b21c-c0ca11af3907",
+                            ConcurrencyStamp = "7e16a479-20d8-4de9-b6c2-f20fea2eedd4",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "dbd65b7a-a8dd-5559-cbba-2bee542eecca",
-                            ConcurrencyStamp = "1492b557-7af4-403c-9056-59c4e84d9fc6",
+                            ConcurrencyStamp = "9f8d29cc-79ae-4cf1-a358-c3bd2ddd36c0",
                             Name = "User",
                             NormalizedName = "USER"
                         });
