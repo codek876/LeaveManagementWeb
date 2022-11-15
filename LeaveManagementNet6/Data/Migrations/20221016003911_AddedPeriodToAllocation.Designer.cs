@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeaveManagementNet6.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221015182558_AddedDefaultUsersAndRoles")]
-    partial class AddedDefaultUsersAndRoles
+    [Migration("20221016003911_AddedPeriodToAllocation")]
+    partial class AddedPeriodToAllocation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,18 +108,19 @@ namespace LeaveManagementNet6.Data.Migrations
                         {
                             Id = "ece65c8a-a8cc-5559-dccb-2cff542ddcca",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05c553a5-c5e0-436f-9c4e-4ed4205fd270",
+                            ConcurrencyStamp = "8e64a827-ea64-49ab-8d18-fa61c7afc65a",
                             DateJoined = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@localhost.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             Firstname = "System",
                             Lastname = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL7E/DHaCGR6tDWVk7M6s5l87vTBnz9WpWanOAHrcsALBgYEXXH1KnAbGenuA3enPA==",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAENN5j9GwRHrq4HnamcVy6Ci3IJS8FeMrmMUxIguvYm8q1UcRXppkzv40PdDP4EV0zw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "86b67a27-ce19-4e07-836d-23a72b25e9b7",
+                            SecurityStamp = "97380078-89cd-450d-86f3-e8f0ec464622",
                             TwoFactorEnabled = false
                         });
                 });
@@ -146,6 +147,9 @@ namespace LeaveManagementNet6.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("NumberOfDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Period")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -211,14 +215,14 @@ namespace LeaveManagementNet6.Data.Migrations
                         new
                         {
                             Id = "dbd54b7f-a8cc-5559-cbba-2bee542ddcca",
-                            ConcurrencyStamp = "7e16a479-20d8-4de9-b6c2-f20fea2eedd4",
+                            ConcurrencyStamp = "2faf5aae-9fe7-4a99-9643-ed99f1733b22",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "dbd65b7a-a8dd-5559-cbba-2bee542eecca",
-                            ConcurrencyStamp = "9f8d29cc-79ae-4cf1-a358-c3bd2ddd36c0",
+                            ConcurrencyStamp = "590b4ce3-f100-41ee-9c03-fcee096b3b0b",
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -12,13 +12,13 @@ namespace LeaveManagementNet6.Configurations.Entities
             builder.HasData(
                 new IdentityRole
                 {
-                    Id = "dbd54b7f-a8cc-5559-cbba-2bee542ddcca",
+                    Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
                     Name = Roles.Administrator,
                     NormalizedName = Roles.Administrator.ToUpper()
                 },
                 new IdentityRole
                 {
-                    Id = "dbd65b7a-a8dd-5559-cbba-2bee542eecca",
+                    Id = "cac43a7e-f7cb-4148-baaf-1acd431eabbf",
                     Name = Roles.User,
                     NormalizedName = Roles.User.ToUpper()
                 }

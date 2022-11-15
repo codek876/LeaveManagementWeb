@@ -11,8 +11,13 @@ namespace LeaveManagementNet6.Configurations.Entities
             builder.HasData(
                 new IdentityUserRole<string>
                 {
-                    RoleId = "dbd54b7f-a8cc-5559-cbba-2bee542ddcca",
-                    UserId = "ece65c8a-a8cc-5559-dccb-2cff542ddcca"
+                    RoleId = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
+                    UserId = "ece65c8a-a8bb-5558-dccb-2cff542ddddb"
+                },
+                new IdentityUserRole<string>
+                {
+                    RoleId = "cac43a7e-f7cb-4148-baaf-1acd431eabbf",
+                    UserId = "dbd54b7f-b7dd-5557-dccb-2bee653eeddb"
                 }
             );
         }
