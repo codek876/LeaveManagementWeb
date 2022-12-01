@@ -4,6 +4,7 @@ using LeaveManagementNet6.Contracts;
 using LeaveManagementNet6.Data;
 using LeaveManagementNet6.Models;
 using LeaveManagementNet6.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LeaveManagementNet6.Controllers
 {
+    
     public class EmployeesController : Controller
     {
         private readonly UserManager<Employee> userManager;
@@ -62,11 +64,16 @@ namespace LeaveManagementNet6.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    
-                    if(await leaveAllocationRepository.UpdateEmployeeAllocation(model))
+                    var leaveAllocation = await leaveAllocationRepository.GetAsync(model.Id);
+                    if(leaveAllocation == null)
                     {
-                        return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
-                    }  
+                        return NotFound();
+                    }
+                    leaveAllocation.Period = model.Period;
+                    leaveAllocation.NumberOfDays = model.NumberOfDays;
+                    await leaveAllocationRepository.UpdateAsync(leaveAllocation);
+
+                    return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId});
                 }
                 
             }

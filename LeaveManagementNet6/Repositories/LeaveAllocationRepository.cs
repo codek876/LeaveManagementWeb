@@ -4,6 +4,7 @@ using LeaveManagementNet6.Contracts;
 using LeaveManagementNet6.Data;
 using LeaveManagementNet6.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementNet6.Repositories
@@ -100,6 +101,11 @@ namespace LeaveManagementNet6.Repositories
             await UpdateAsync(leaveAllocation);
 
             return true;
+        }
+
+        public async Task<LeaveAllocation?> GetEmployeeAllocation(string employeeId, int leaveTypeId)
+        {
+            return await context.LeaveAllocations.FirstOrDefaultAsync(q => q.EmployeeId == employeeId && q.LeaveTypeId == leaveTypeId);
         }
     }
 }
