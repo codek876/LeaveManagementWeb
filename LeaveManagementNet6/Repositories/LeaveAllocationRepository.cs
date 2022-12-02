@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using LeaveManagementNet6.Constants;
 using LeaveManagementNet6.Contracts;
 using LeaveManagementNet6.Data;
@@ -6,6 +7,7 @@ using LeaveManagementNet6.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace LeaveManagementNet6.Repositories
 {
@@ -14,15 +16,19 @@ namespace LeaveManagementNet6.Repositories
         private readonly ApplicationDbContext context;
         private readonly UserManager<Employee> userManager;
         private readonly ILeaveTypeRepository leaveTypeRepository;
+        private readonly IConfigurationProvider configurationProvider;
         private readonly IMapper mapper;
 
         public LeaveAllocationRepository(ApplicationDbContext context,
-            UserManager<Employee> userManager, ILeaveTypeRepository leaveTypeRepository,
+            UserManager<Employee> userManager,
+            ILeaveTypeRepository leaveTypeRepository,
+            IConfigurationProvider configurationProvider,
             IMapper mapper) : base(context)
         {
             this.context = context;
             this.userManager = userManager;
             this.leaveTypeRepository = leaveTypeRepository;
+            this.configurationProvider = configurationProvider;
             this.mapper = mapper;
         }
 
@@ -38,11 +44,12 @@ namespace LeaveManagementNet6.Repositories
             var allocations = await context.LeaveAllocations
                 .Include(q => q.LeaveType)
                 .Where(q => q.EmployeeId == employeeId)
+                .ProjectTo<LeaveAllocationVM>(configurationProvider)
                 .ToListAsync();
             var employee = await userManager.FindByIdAsync(employeeId);
 
             var employeeAllocationModel = mapper.Map<EmployeeAllocationVM>(employee);
-            employeeAllocationModel.LeaveAllocations = mapper.Map<List<LeaveAllocationVM>>(allocations);
+            employeeAllocationModel.LeaveAllocations = allocations;
 
             return employeeAllocationModel;
         }
@@ -51,6 +58,7 @@ namespace LeaveManagementNet6.Repositories
         {
             var allocation = await context.LeaveAllocations
                 .Include(q => q.LeaveType)
+                .ProjectTo<LeaveAllocationEditVM>(configurationProvider)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
             if(allocation == null)
