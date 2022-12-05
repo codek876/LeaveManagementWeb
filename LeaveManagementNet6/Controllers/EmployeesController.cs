@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using LeaveManagementNet6.Constants;
-using LeaveManagementNet6.Contracts;
-using LeaveManagementNet6.Data;
-using LeaveManagementNet6.Models;
-using LeaveManagementNet6.Repositories;
+using LeaveManagement.Common.Constants;
+using LeaveManagement.BusinessLogic.Contracts;
+using LeaveManagement.Data;
+using LeaveManagement.Common.Models;
+using LeaveManagement.BusinessLogic.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

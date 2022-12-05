@@ -1,12 +1,12 @@
-using LeaveManagementNet6.Configurations;
-using LeaveManagementNet6.Contracts;
-using LeaveManagementNet6.Data;
-using LeaveManagementNet6.Repositories;
+using LeaveManagement.BusinessLogic.Configurations;
+using LeaveManagement.BusinessLogic.Contracts;
+using LeaveManagement.Data;
+using LeaveManagement.BusinessLogic.Repositories;
 using LeaveManagementNet6.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,9 +31,15 @@ builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
+builder.Host.UseSerilog((ctx, lc) =>
+    lc.WriteTo.Console()
+    .ReadFrom.Configuration(ctx.Configuration));
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

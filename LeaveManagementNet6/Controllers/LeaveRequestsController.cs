@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LeaveManagementNet6.Data;
-using LeaveManagementNet6.Models;
+using LeaveManagement.Data;
+using LeaveManagement.Common.Models;
 using AutoMapper;
-using LeaveManagementNet6.Contracts;
+using LeaveManagement.BusinessLogic.Contracts;
 using Microsoft.AspNetCore.Authorization;
-using LeaveManagementNet6.Constants;
+using LeaveManagement.Common.Constants;
 using System.Linq.Expressions;
 
 namespace LeaveManagementNet6.Controllers
@@ -20,12 +20,15 @@ namespace LeaveManagementNet6.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILeaveRequestRepository leaveRequestRepository;
+        private readonly ILogger<LeaveRequestsController> logger;
 
         public LeaveRequestsController(ApplicationDbContext context,
-            ILeaveRequestRepository leaveRequestRepository)
+            ILeaveRequestRepository leaveRequestRepository,
+            ILogger<LeaveRequestsController> logger)
         {
             _context = context;
             this.leaveRequestRepository = leaveRequestRepository;
+            this.logger = logger;
         }
 
 
@@ -66,6 +69,7 @@ namespace LeaveManagementNet6.Controllers
             }
             catch(Exception ex)
             {
+                logger.LogError(ex, "Error Approving Request");
                 throw;
             }
             return RedirectToAction(nameof(Index));
@@ -82,6 +86,7 @@ namespace LeaveManagementNet6.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError(ex, "Error Cancelling Leave Request");
                 throw;
             }
             return RedirectToAction(nameof(Index));
@@ -115,6 +120,7 @@ namespace LeaveManagementNet6.Controllers
             }
             catch(Exception ex)
             {
+                logger.LogError(ex, "Error Creating Leave Request");
                 ModelState.AddModelError(string.Empty, "An Error Has Occurred. Please Try Again Later");
             }  
             model.LeaveTypes = new SelectList(_context.LeaveTypes, "Id", "Name", model.LeaveTypeId);
